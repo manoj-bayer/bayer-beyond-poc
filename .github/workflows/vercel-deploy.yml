@@ -14,16 +14,18 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install all monorepo dependencies
         run: npm install
-        working-directory: headapps/sites/corp
 
-      - name: Build Next.js app only (skip sitecore-tools)
+      - name: Build shared libraries
+        run: npm run build --workspace @catalyst/feature-themes
+
+      - name: Build Next.js app
         run: npm run next:build
         working-directory: headapps/sites/corp
 
