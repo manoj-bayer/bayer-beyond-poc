@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: headapps
+        working-directory: headapps/sites/corp/
 
     steps:
       - name: Checkout repo
