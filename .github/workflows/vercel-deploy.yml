@@ -23,8 +23,8 @@ jobs:
         run: npm install
         working-directory: headapps/sites/corp
 
-      - name: Build corp
-        run: npm run build
+      - name: Next.js build only
+        run: npm run next:build
         working-directory: headapps/sites/corp
 
       - name: Deploy to Vercel
