@@ -1,23 +1,27 @@
-name: Deploy to Vercel
+name: Deploy Next.js to Vercel
 
 on:
   push:
     branches:
-      - main
+      - main  # or your deployment branch
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     environment: vercel  # Reference the environment where your secrets live
 
+    defaults:
+      run:
+        working-directory: headapps
+
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build Project
+      - name: Build Next.js app
         run: npm run build
 
       - name: Deploy to Vercel
