@@ -19,6 +19,10 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install root dependencies
+        run: npm install
+        working-directory: headapps    
+
       - name: Install dependencies (corp only)
         run: npm install
         working-directory: headapps/sites/corp
