@@ -1,4 +1,4 @@
-name: Deploy Next.js to Vercel
+name: Deploy Next.js (corp) to Vercel
 
 on:
   push:
@@ -19,14 +19,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install all monorepo dependencies
+      - name: Install dependencies (corp only)
         run: npm install
+        working-directory: headapps/sites/corp
 
-      - name: Build shared libraries
-        run: npm run build --workspace @catalyst/feature-themes
-
-      - name: Build Next.js app
-        run: npm run next:build
+      - name: Build corp
+        run: npm run build
         working-directory: headapps/sites/corp
 
       - name: Deploy to Vercel
