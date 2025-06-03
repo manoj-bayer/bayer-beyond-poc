@@ -3,29 +3,33 @@ name: Deploy Next.js to Vercel
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: vercel  # Reference the environment where your secrets live
-
-    defaults:
-      run:
-        working-directory: headapps/sites/corp/
+    environment: vercel
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Install dependencies
         run: npm install
+        working-directory: headapps/sites/corp
 
-      - name: Build Next.js app
-        run: npm run build
+      - name: Build Next.js app only (skip sitecore-tools)
+        run: npm run next:build
+        working-directory: headapps/sites/corp
 
       - name: Deploy to Vercel
         run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        working-directory: headapps/sites/corp
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
